@@ -1,0 +1,254 @@
+     
+     HIghscore
+     result if finish
+     nickname with divison
+     background
+     title friend or pest
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+      {
+        img: 'Images/pests/Brown-Planthopper.jpg',
+        name: 'Brown Planthopper',
+        type: 'pest',
+        description: 'Brown Planthopper sucks rice sap and spreads viral diseases, causing hopper burn.'
+      },
+      {
+        img: 'Images/pests/Cutworm.jpg',
+        name: 'Cutworm',
+        type: 'pest',
+        description: 'Cutworm cuts young rice seedlings at the base, killing plants.'
+      },
+      {
+        img: 'Images/pests/GAS.jpg',
+        name: 'Golden Apple Snail',
+        type: 'pest',
+        description: 'Golden Apple Snail feeds on young rice seedlings, damaging new paddies.'
+      },
+      {
+        img: 'Images/pests/Greenleafhopper.jpg',
+        name: 'Green Leafhopper',
+        type: 'pest',
+        description: 'Green Leafhopper spreads plant viruses while feeding on rice sap.'
+      },
+      {
+        img: 'Images/pests/leaffolder.jpg',
+        name: 'Leaf Folder',
+        type: 'pest',
+        description: 'Leaf Folder folds and feeds inside rice leaves, reducing photosynthesis.'
+      },
+       {
+        img: 'Images/pests/Molecricket.jpg',
+        name: 'Mole Cricket',
+        type: 'pest',
+        description: 'Mole Cricket damages roots by tunneling and cutting seedlings.'
+      },
+       {
+        img: 'Images/pests/Rat.jpg',
+        name: 'Rats',
+        type: 'pest',
+        description: 'Rats feed on rice seeds, stems, and grains from planting to harvest.'
+      },
+       {
+        img: 'Images/pests/RBB.jpg',
+        name: 'Rice Black Bug',
+        type: 'pest',
+        description: 'Rice Black Bug sucks sap from grains, causing black spots and empty heads.'
+      },
+      {
+        img: 'Images/pests/Ricestemborer.jpg',
+        name: 'Rice Stemborer',
+        type: 'pest',
+        description: 'Rice Stemborer bores into stems, causing dead hearts and white heads.'
+      },
+      {
+        img: 'Images/pests/Ricebug.jpg',
+        name: 'Ricebug',
+        type: 'pest',
+        description: 'Ricebug pierces grains, causing shriveled and discolored rice.'
+      },
+      {
+        img: 'Images/pests/Skipper.jpg',
+        name: 'Skipper',
+        type: 'pest',
+        description: 'Skipper eats large sections of rice leaves, reducing yield.'
+      },
+      {
+        img: 'Images/pests/Weevil.jpg',
+        name: 'Weevil',
+        type: 'pest',
+        description: 'Weevil infests stored grains, lowering quality and quantity.'
+      },
+      {
+        img: 'Images/pests/WBP.jpg',
+        name: 'White-backed Planthopper',
+        type: 'pest',
+        description: 'White-backed Planthopper feeds on sap and spreads viruses, weakening plants.'
+      },
+      {
+        img: 'Images/pests/yellowstemborer.jpg',
+        name: 'Yellow Stemborer',
+        type: 'pest',
+        description: 'Yellow Stemborer bores into stems, causing dead or empty grain heads.'
+      }, 
+       {
+        img: 'Images/friend/Bigwasp.jpg',
+        name: 'Big Wasp',
+        type: 'friend',
+        description: 'Big wasps pollinate flowers and control pests.'
+      },
+      {
+        img: 'Images/friend/Damselfly.jpg',
+        name: 'Damselfly',
+        type: 'friend',
+        description: 'Damselflies eat harmful mosquitoes and insects.'
+      },
+      {
+        img: 'Images/friend/DwarfSpider.jpg',
+        name: 'Dwarf Spider',
+        type: 'friend',
+        description: 'Dwarf spiders help control small pest insects in gardens.'
+      },
+      {
+        img: 'Images/friend/Fieldcricket.jpg',
+        name: 'Field crickets',
+        type: 'friend',
+        description: 'Field crickets help break down organic matter.'
+      },
+      {
+        img: 'Images/friend/GroundBettle.jpg',
+        name: 'Ground Beetle',
+        type: 'friend',
+        description: 'Ground beetles feed on soil pests, protecting plants.'
+      },
+      {
+        img: 'Images/friend/LadyBettle.jpg',
+        name: 'Lady Beetle',
+        type: 'friend',
+        description: 'Lady beetles eat aphids that damage crops.'
+      },
+        {
+        img: 'Images/friend/Ladybug Nymph.jpg',
+        name: 'Ladybug Nymph',
+        type: 'friend',
+        description: 'Ladybug nymphs are young aphid-eaters protecting plants early.'
+      },
+      {
+        img: 'Images/friend/LonghornedGrasshopper.jpg',
+        name: 'Long-horned Grasshopper',
+        type: 'friend',
+        description: 'Long-horned grasshoppers mostly feed on weeds, not crops.'
+      },
+      {
+        img: 'Images/friend/LongjawedSpider.jpg',
+        name: 'Long-jawed Spider',
+        type: 'friend',
+        description: 'Long-jawed spiders catch pests harmful to gardens.'
+      },
+      {
+        img: 'Images/friend/LynxSpider.jpg',
+        name: 'Lynx Spider',
+        type: 'friend',
+        description: 'Lynx Spiders control insect populations naturally.'
+      },
+       {
+        img: 'Images/friend/MiridBug.jpg',
+        name: 'Mirid Bug',
+        type: 'friend',
+        description: 'Mirid bugs prey on smaller pest insects.'
+      },
+      {
+        img: 'Images/friend/Orbspider.jpg',
+        name: 'Orb Spider',
+        type: 'friend',
+        description: 'Orb spiders catch flying pests in webs.'
+      },
+      {
+        img: 'Images/friend/ShorthornedGrasshopper.jpg',
+        name: 'Short-horned Grasshopper',
+        type: 'friend',
+        description: 'Short-horned grasshoppers often feed on unwanted weeds.'
+      },
+      {
+        img: 'Images/friend/Smallwasp.jpg',
+        name: 'Small Wasp',
+        type: 'friend',
+        description: 'Small wasps parasitize harmful pest larvae.'
+      },
+      {
+        img: 'Images/friend/TachinidFly.jpg',
+        name: 'Tachinid Fly',
+        type: 'friend',
+        description: 'Tachinid fly larvae kill pest insects.'
+      },
+      {
+        img: 'Images/friend/Wolfspider.jpg',
+        name: 'Wolf Spider',
+        type: 'friend',
+        description: 'Wolf spiders hunt and control harmful bugs.'
+      },
+
+
+
+
+background: url('Images/bg.JPG') no-repeat center center fixed;
+  background-size: cover;
+
+
+      Big wasp
+      Damselfly
+      Dwarf LynxSpider
+      Field Cricket
+      Ground Beetle
+      Lady Beetle
+      Ladybug Nymph
+      Long-horned Grasshopper
+      Long-jawed Spider
+      LynxSpider
+      Mirid Bug
+      Orb Spider
+      Short-horned Grasshopper
+      Small wasp
+      Tachinid Fly
+      Wolf Spider
+
+      Big wasps pollinate flowers and control pests.
+
+Damselflies eat harmful mosquitoes and insects.
+
+Dwarf LynxSpiders hunt garden pests without harming plants.
+
+Field crickets help break down organic matter.
+
+Ground beetles feed on soil pests, protecting plants.
+
+Lady beetles eat aphids that damage crops.
+
+Ladybug nymphs are young aphid-eaters protecting plants early.
+
+Long-horned grasshoppers mostly feed on weeds, not crops.
+
+Long-jawed spiders catch pests harmful to gardens.
+
+LynxSpiders control insect populations naturally.
+
+Mirid bugs prey on smaller pest insects.
+
+Orb spiders catch flying pests in webs.
+
+Short-horned grasshoppers often feed on unwanted weeds.
+
+Small wasps parasitize harmful pest larvae.
+
+Tachinid fly larvae kill pest insects.
+
+Wolf spiders hunt and control harmful bugs.

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Friend or Pest Game</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      background-color: #00796b;
+      color: white;
+      padding: 20px 0;
+      margin: 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    .hidden {
+      display: none;
+    }
+    .game-container {
+      margin: 30px auto;
+      max-width: 600px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .insect-img {
+      max-width: 100%;
+      border: 6px solid #00796b;
+      border-radius: 15px;
+      margin-top: 10px;
+    }
+    .buttons {
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 20px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .friend {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .friend:hover {
+      background-color: #388e3c;
+    }
+    .pest {
+      background-color: #f44336;
+      color: white;
+    }
+    .pest:hover {
+      background-color: #d32f2f;
+    }
+    #score, #lives, #progress {
+      font-size: 22px;
+      margin: 10px;
+      color: #333;
+    }
+    #lives {
+      color: #e53935;
+    }
+    #insect-name {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #00695c;
+    }
+    #feedback {
+      font-size: 18px;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #eeeeee;
+      border-radius: 10px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #feedback.correct {
+      color: green;
+      font-weight: bold;
+    }
+    #feedback.wrong {
+      color: red;
+      font-weight: bold;
+    }
+    #start-screen, #end-screen {
+      margin-top: 60px;
+    }
+    #start-screen button, #end-screen button {
+      background-color: #00796b;
+      color: white;
+      padding: 15px 30px;
+      font-size: 22px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #start-screen button:hover, #end-screen button:hover {
+      background-color: #004d40;
+    }
+    #final-score {
+      font-size: 26px;
+      margin-bottom: 20px;
+      color: #444;
+    }
+    #next-btn {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 18px;
+      background-color: #0288d1;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #next-btn:hover {
+      background-color: #0277bd;
+    }
+  </style>
+</head>
+<body>
+  <h1>Friend or Pest?</h1>
+
+  <div id="start-screen">
+    <div style="margin-bottom: 20px; font-size: 18px; color: #333; padding: 0 20px;">
+      Welcome to <strong>Friend or Pest?</strong> 🐞<br>
+      Decide if each insect is a <em>Friend</em> or a <em>Pest</em>.<br>
+      You get <strong>3 lives</strong>. Each wrong answer costs a life!<br>
+      Press <strong>'F'</strong> for Friend or <strong>'P'</strong> for Pest.
+    </div>
+    <button onclick="startGame()">Start Game</button>
+  </div>
+
+  <div id="game" class="hidden">
+    <div id="score">Score: 0</div>
+    <div id="lives">Lives: ❤️❤️❤️❤️❤️</div>
+    <div id="progress">Insect 1 of 1</div>
+    <div class="game-container">
+      <h2 id="insect-name"></h2>
+      <img id="insect" class="insect-img" src="" alt="Insect" />
+      <div class="buttons">
+        <button class="friend" onclick="choose('friend')">Friend</button>
+        <button class="pest" onclick="choose('pest')">Pest</button>
+      </div>
+      <div id="feedback"></div>
+      <button id="next-btn" class="hidden" onclick="nextQuestion()">Next</button>
+    </div>
+  </div>
+
+  <div id="end-screen" class="hidden">
+    <h2 id="final-score"></h2>
+    <button onclick="startGame()">Restart</button>
+  </div>
+
+  <audio id="correct-sound" src="https://www.soundjay.com/button/sounds/button-4.mp3"></audio>
+  <audio id="wrong-sound" src="https://www.soundjay.com/button/sounds/button-10.mp3"></audio>
+
+  <script>
+    const insectsOriginal = [
+      {
+        img: 'Images/pests/Brown-Planthopper.jpg',
+        name: 'Brown Planthopper',
+        type: 'pest',
+        description: 'Brown Planthopper sucks rice sap and spreads viral diseases, causing hopper burn.'
+      },
+      // Add more insects as needed
+    ];
+
+    let insects = [];
+    let currentIndex = 0;
+    let score = 0;
+    let lives = 5;
+
+    const insectImg = document.getElementById('insect');
+    const insectNameDisplay = document.getElementById('insect-name');
+    const scoreDisplay = document.getElementById('score');
+    const livesDisplay = document.getElementById('lives');
+    const progressDisplay = document.getElementById('progress');
+    const feedbackDisplay = document.getElementById('feedback');
+    const startScreen = document.getElementById('start-screen');
+    const gameScreen = document.getElementById('game');
+    const endScreen = document.getElementById('end-screen');
+    const finalScore = document.getElementById('final-score');
+    const correctSound = document.getElementById('correct-sound');
+    const wrongSound = document.getElementById('wrong-sound');
+    const nextBtn = document.getElementById('next-btn');
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    function setChoiceButtonsEnabled(enabled) {
+      const buttons = document.querySelectorAll('.buttons button');
+      buttons.forEach(btn => btn.disabled = !enabled);
+    }
+
+    function updateLivesDisplay() {
+      livesDisplay.textContent = 'Lives: ' + '❤️'.repeat(lives);
+    }
+
+    function showInsect() {
+      const insect = insects[currentIndex];
+      insectImg.src = insect.img;
+      insectNameDisplay.textContent = insect.name || '';
+      feedbackDisplay.textContent = '';
+      feedbackDisplay.className = '';
+      progressDisplay.textContent = `Insect ${currentIndex + 1} of ${insects.length}`;
+      nextBtn.classList.add('hidden');
+      setChoiceButtonsEnabled(true);
+    }
+
+    function choose(choice) {
+      const insect = insects[currentIndex];
+      setChoiceButtonsEnabled(false);
+
+      if (insect.type === choice) {
+        score++;
+        correctSound.play();
+        feedbackDisplay.innerHTML = '✅ Correct!<br><br>' + insect.description;
+        feedbackDisplay.className = 'correct';
+      } else {
+        lives--;
+        updateLivesDisplay();
+        wrongSound.play();
+        feedbackDisplay.innerHTML = '❌ Wrong!<br><br>' + insect.description;
+        feedbackDisplay.className = 'wrong';
+
+        if (lives <= 0) {
+          endGame();
+          return;
+        }
+      }
+
+      scoreDisplay.textContent = 'Score: ' + score;
+      nextBtn.classList.remove('hidden');
+    }
+
+    function nextQuestion() {
+      currentIndex++;
+      if (currentIndex >= insects.length) {
+        shuffle(insects);
+        currentIndex = 0;
+      }
+      showInsect();
+    }
+
+    function startGame() {
+      insects = [...insectsOriginal];
+      shuffle(insects);
+      currentIndex = 0;
+      score = 0;
+      lives = 5;
+      scoreDisplay.textContent = 'Score: 0';
+      updateLivesDisplay();
+      feedbackDisplay.textContent = '';
+      feedbackDisplay.className = '';
+      startScreen.classList.add('hidden');
+      endScreen.classList.add('hidden');
+      gameScreen.classList.remove('hidden');
+      nextBtn.classList.add('hidden');
+      showInsect();
+    }
+
+    function endGame() {
+      gameScreen.classList.add('hidden');
+      endScreen.classList.remove('hidden');
+      finalScore.textContent = `💀 Game Over! Final Score: ${score}`;
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (!gameScreen.classList.contains('hidden') && nextBtn.classList.contains('hidden')) {
+        if (e.key.toLowerCase() === 'f') choose('friend');
+        else if (e.key.toLowerCase() === 'p') choose('pest');
+      }
+    });
+  </script>
+</body>
+</html>
