@@ -4,16 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>Friend or Pest Game</title>
-
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><text y=%2224%22 font-size=%2232%22>🐞</text></svg>">
-
-<style>
+  <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
-      background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+      background: 
+                  url('Images/bg/bground.JPG') no-repeat center center fixed;
+      background-size: cover;
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
     }
     h1 {
       background-color: #00796b;
@@ -21,24 +21,33 @@
       padding: 20px 0;
       margin: 0;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-      animation: fadeIn 1.5s ease forwards;
+      position: relative;
+      z-index: 10;
     }
-    .hidden {
-      display: none;
-    }
+    .hidden { display: none; }
     .game-container {
       margin: 30px auto;
       max-width: 600px;
-      background-color: white;
+      background-color: rgba(255, 255, 255, 0.9); /* glass effect */
       padding: 20px;
       border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(6px);
+      position: relative;
+      z-index: 10;
     }
     .insect-img {
       max-width: 100%;
       border: 6px solid #00796b;
       border-radius: 15px;
       margin-top: 10px;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .insect-img.show {
+      opacity: 1;
+      transform: scale(1);
     }
     .buttons {
       margin-top: 25px;
@@ -55,28 +64,18 @@
       transition: background-color 0.3s ease;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
-    .friend {
-      background-color: #4CAF50;
-      color: white;
-    }
-    .friend:hover {
-      background-color: #388e3c;
-    }
-    .pest {
-      background-color: #f44336;
-      color: white;
-    }
-    .pest:hover {
-      background-color: #d32f2f;
-    }
+    .friend { background-color: #4CAF50; color: white; }
+    .friend:hover { background-color: #388e3c; }
+    .pest { background-color: #f44336; color: white; }
+    .pest:hover { background-color: #d32f2f; }
     #score, #lives, #progress {
       font-size: 22px;
       margin: 10px;
       color: #333;
+      position: relative;
+      z-index: 10;
     }
-    #lives {
-      color: #e53935;
-    }
+    #lives { color: #e53935; }
     #insect-name {
       font-size: 24px;
       font-weight: bold;
@@ -93,17 +92,21 @@
       margin-left: auto;
       margin-right: auto;
     }
-    #feedback.correct {
-      color: green;
-      font-weight: bold;
-    }
+    #feedback.correct { color: green; font-weight: bold; }
     #feedback.wrong {
       color: red;
       font-weight: bold;
+      animation: shake 0.4s;
     }
-    #start-screen, #end-screen {
-      margin-top: 60px;
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-8px); }
+      80% { transform: translateX(8px); }
+      100% { transform: translateX(0); }
     }
+    #start-screen, #end-screen { margin-top: 60px; }
     #start-screen button, #end-screen button {
       background-color: #00796b;
       color: white;
@@ -112,11 +115,9 @@
       border: none;
       border-radius: 12px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      margin: 10px;
     }
-    #start-screen button:hover, #end-screen button:hover {
-      background-color: #004d40;
-    }
+    #start-screen button:hover, #end-screen button:hover { background-color: #004d40; }
     #final-score {
       font-size: 26px;
       margin-bottom: 20px;
@@ -133,55 +134,63 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
-    #next-btn:hover {
-      background-color: #0277bd;
+    #next-btn:hover { background-color: #0277bd; }
+
+    /* Floating insects */
+    .insects {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1; /* behind game UI */
     }
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .insect {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.9;
     }
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    @keyframes float1 {
+      0% { transform: translate(-50px, 0) rotate(0); }
+      50% { transform: translate(50vw, -40px) rotate(20deg); }
+      100% { transform: translate(110vw, 0) rotate(-20deg); }
     }
-    @keyframes bgZoom {
-      0% { background-size: 100%; }
-      50% { background-size: 105%; }
-      100% { background-size: 100%; }
+    @keyframes float2 {
+      0% { transform: translate(100vw, 0) rotate(0); }
+      50% { transform: translate(50vw, 40px) rotate(-20deg); }
+      100% { transform: translate(-60vw, 0) rotate(20deg); }
     }
-    #start-screen button {
-      animation: slideUp 1.5s ease 1s forwards;
-      opacity: 0;
-    }
-    body {
-      animation: bgZoom 10s ease-in-out infinite;
-    }
-</style>
+  </style>
 </head>
 <body>
-  <h1>Friend or Pest?</h1>
+ <h1>Friend or Pest?</h1>
+
+  <!-- Floating insects layer -->
+  <div class="insects">
+    <div class="insect" style="top:10%; animation: float1 18s linear infinite;">🐞</div>
+    <div class="insect" style="top:20%; animation: float2 25s linear infinite;">🦋</div>
+    <div class="insect" style="top:70%; animation: float1 22s linear infinite;">🐝</div>
+    <div class="insect" style="top:50%; animation: float2 20s linear infinite;">🐞</div>
+    <div class="insect" style="top:30%; animation: float1 30s linear infinite;">🦋</div>
+    <div class="insect" style="top:80%; animation: float2 26s linear infinite;">🐝</div>
+  </div>
 
   <div id="start-screen">
-    <div style="margin-bottom: 20px; font-size: 18px; color: #333; padding: 0 20px;">
-      Welcome to <strong>Friend or Pest?</strong> 🐞<br>
-      Decide if each insect is a <em>Friend</em> or a <em>Pest</em>.<br>
-      You get <strong>5 lives</strong>. Each wrong answer costs a life!<br>
-      Press <strong>'F'</strong> for Friend or <strong>'P'</strong> for Pest.
+    <div style="margin-bottom: 20px; font-size: 25px; color: #333; padding: 0 20px;">
+      Welcome to <strong>Friend or Pest?</strong> 🐞<br><br><br><br><br><br>
+      Choose a difficulty level:<br><br>
     </div>
-    <button onclick="startGame()">Start Game</button>
+    <button onclick="startGame('easy')">Easy <br> (7 ❤️ - 10 Questions)</button>
+    <button onclick="startGame('medium')">Medium <br> (5 ❤️ - 20 Questions)</button>
+    <button onclick="startGame('hard')">Hard <br> (3 ❤️ - 30 Questions)</button>
   </div>
 
   <div id="game" class="hidden">
     <div id="score">Score: 0</div>
-    <div id="lives">Lives: ❤️❤️❤️❤️❤️</div>
-    <div id="progress">Insect 1 of 1</div>
+    <div id="lives"></div>
+    <div id="progress"></div>
     <div class="game-container">
       <h2 id="insect-name"></h2>
       <img id="insect" class="insect-img" src="" alt="Insect" />
@@ -196,14 +205,15 @@
 
   <div id="end-screen" class="hidden">
     <h2 id="final-score"></h2>
-    <button onclick="startGame()">Restart</button>
+    <button onclick="showMenu()">Back to Menu</button>
   </div>
 
   <audio id="correct-sound" src="audio/Correct.mp3"></audio>
   <audio id="wrong-sound" src="audio/Wrong.mp3"></audio>
 
 <script>
-  const insectsOriginal = [
+  // Your insects array (unchanged, keep your original full list)
+  const insectsOriginal = [ 
     {
         img: 'Images/pests/Brown-Planthopper.jpg',
         name: 'Brown Planthopper',
@@ -217,7 +227,7 @@
         description: 'Army Worm cuts young rice seedlings at the base, killing plants.'
       },
       {
-        img: 'Images/pests/GAS.jpg',
+        img: 'Images/pests/IAS.jpg',
         name: 'Invasive Apple Snail',
         type: 'pest',
         description: 'Invasive Apple Snail feeds on young rice seedlings, damaging new paddies.'
@@ -250,7 +260,7 @@
         img: 'Images/pests/RBB.jpg',
         name: 'Rice Black Bug',
         type: 'pest',
-        description: 'Rice Black Bug stay and feed on the base of the plants, suck saps causing deadheart or whiteheads, and severe infestation causes bug burn.'
+        description: 'Rice black bugs stay at the plant base, sucking sap and causing deadhearts, whiteheads, or bug burn during severe infestations.'
       },
       {
         img: 'Images/pests/Ricestemborer.jpg',
@@ -390,6 +400,7 @@
   let currentIndex = 0;
   let score = 0;
   let lives = 5;
+  let totalQuestions = 0;
 
   const insectImg = document.getElementById('insect');
   const insectNameDisplay = document.getElementById('insect-name');
@@ -413,8 +424,7 @@
   }
 
   function setChoiceButtonsEnabled(enabled) {
-    const buttons = document.querySelectorAll('.buttons button');
-    buttons.forEach(btn => btn.disabled = !enabled);
+    document.querySelectorAll('.buttons button').forEach(btn => btn.disabled = !enabled);
   }
 
   function updateLivesDisplay() {
@@ -423,11 +433,15 @@
 
   function showInsect() {
     const insect = insects[currentIndex];
+    insectImg.classList.remove('show'); // reset animation
     insectImg.src = insect.img;
+    insectImg.alt = insect.name + " - " + insect.type;
+    setTimeout(() => insectImg.classList.add('show'), 50);
+
     insectNameDisplay.textContent = insect.name || '';
     feedbackDisplay.textContent = '';
     feedbackDisplay.className = '';
-    progressDisplay.textContent = `Insect ${currentIndex + 1} of ${insects.length}`;
+    progressDisplay.textContent = `Insect ${currentIndex + 1} of ${totalQuestions}`;
     nextBtn.classList.add('hidden');
     setChoiceButtonsEnabled(true);
   }
@@ -447,7 +461,6 @@
       wrongSound.play();
       feedbackDisplay.innerHTML = '❌ Wrong!<br><br>' + insect.description;
       feedbackDisplay.className = 'wrong';
-
       if (lives <= 0) {
         endGame();
         return;
@@ -460,34 +473,45 @@
 
   function nextQuestion() {
     currentIndex++;
-    if (currentIndex >= insects.length) {
-      shuffle(insects);
-      currentIndex = 0;
+    if (currentIndex >= totalQuestions) {
+      endGame();
+      return;
     }
     showInsect();
   }
 
-  function startGame() {
+  function startGame(difficulty) {
     insects = [...insectsOriginal];
     shuffle(insects);
+
+    if (difficulty === 'easy') { lives = 7; totalQuestions = 10; }
+    else if (difficulty === 'medium') { lives = 5; totalQuestions = 20; }
+    else if (difficulty === 'hard') { lives = 3; totalQuestions = 30; }
+
+    insects = insects.slice(0, totalQuestions);
+
     currentIndex = 0;
     score = 0;
-    lives = 5;
+
     scoreDisplay.textContent = 'Score: 0';
     updateLivesDisplay();
     feedbackDisplay.textContent = '';
-    feedbackDisplay.className = '';
     startScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
-    nextBtn.classList.add('hidden');
     showInsect();
   }
 
   function endGame() {
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    finalScore.innerHTML = `💀 Game Over! <br><br> Final Score: ${score}<br><br>`;
+    finalScore.innerHTML = `🎯 Final Score: ${score} / ${totalQuestions}`;
+  }
+
+  function showMenu() {
+    startScreen.classList.remove('hidden');
+    gameScreen.classList.add('hidden');
+    endScreen.classList.add('hidden');
   }
 
   document.addEventListener('keydown', function(e) {

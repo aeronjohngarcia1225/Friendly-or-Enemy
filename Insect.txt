@@ -1,0 +1,182 @@
+<script>
+  const insectsOriginal = [ 
+    {
+        img: 'Images/pests/Brown-Planthopper.jpg',
+        name: 'Brown Planthopper',
+        type: 'pest',
+        description: 'Brown Planthopper sucks rice sap and spreads viral diseases, causing hopper burn.'
+      },
+      {
+        img: 'Images/pests/Armyworm.jpg',
+        name: 'Army Worm',
+        type: 'pest',
+        description: 'Army Worm cuts young rice seedlings at the base, killing plants.'
+      },
+      {
+        img: 'Images/pests/IAS.jpg',
+        name: 'Invasive Apple Snail',
+        type: 'pest',
+        description: 'Invasive Apple Snail feeds on young rice seedlings, damaging new paddies.'
+      },
+      {
+        img: 'Images/pests/Greenleafhopper.jpg',
+        name: 'Green Leafhopper',
+        type: 'pest',
+        description: 'Green Leafhopper spreads plant viruses while feeding on rice sap.'
+      },
+      {
+        img: 'Images/pests/leaffolder.jpg',
+        name: 'Leaf Folder',
+        type: 'pest',
+        description: 'Leaf Folder folds and feeds inside rice leaves, reducing photosynthesis.'
+      },
+       {
+        img: 'Images/pests/Molecricket.jpg',
+        name: 'Mole Cricket',
+        type: 'pest',
+        description: 'Mole Cricket damages roots by tunneling and cutting seedlings.'
+      },
+       {
+        img: 'Images/pests/Rat.jpg',
+        name: 'Rats',
+        type: 'pest',
+        description: 'Rats feed on rice seeds, stems, and grains from planting to harvest.'
+      },
+       {
+        img: 'Images/pests/RBB.jpg',
+        name: 'Rice Black Bug',
+        type: 'pest',
+        description: 'Rice black bugs stay at the plant base, sucking sap and causing deadhearts, whiteheads, or bug burn during severe infestations.'
+      },
+      {
+        img: 'Images/pests/Ricestemborer.jpg',
+        name: 'Rice Stemborer',
+        type: 'pest',
+        description: 'Rice Stemborer bores into stems, causing dead hearts and white heads.'
+      },
+      {
+        img: 'Images/pests/Ricebug.jpg',
+        name: 'Ricebug',
+        type: 'pest',
+        description: 'Ricebug pierces rice grains and sucks the soft sap, causing the grains to become discolored or empty.'
+      },
+      {
+        img: 'Images/pests/Skipper.jpg',
+        name: 'Skipper',
+        type: 'pest',
+        description: 'Skipper feeds on rice leaves, reducing yield.'
+      },
+      {
+        img: 'Images/pests/Weevil.jpg',
+        name: 'Weevil',
+        type: 'pest',
+        description: 'Weevil infests stored grains, lowering quality and quantity.'
+      },
+      {
+        img: 'Images/pests/WBP.jpg',
+        name: 'White-backed Planthopper',
+        type: 'pest',
+        description: 'White-backed Planthopper feeds on sap and spreads viruses, weakening plants.'
+      },
+      {
+        img: 'Images/pests/yellowstemborer.jpg',
+        name: 'Yellow Stemborer',
+        type: 'pest',
+        description: 'Yellow Stemborer bores and feed in the stem, causing deadheart during vegetative Phase ang white heads during maturity phase of rice.'
+      }, 
+       {
+        img: 'Images/friend/Bigwasp.jpg',
+        name: 'Big Wasp',
+        type: 'friend',
+        description: 'Big wasps feed on the larvae and pupae of leaffolders, skippers, armyworms, whorl maggots, and stemborers.'
+      },
+      {
+        img: 'Images/friend/Damselfly.jpg',
+        name: 'Damselfly',
+        type: 'friend',
+        description: 'Damselflies eat harmful mosquitoes and insects.'
+      },
+      {
+        img: 'Images/friend/DwarfSpider.jpg',
+        name: 'Dwarf Spider',
+        type: 'friend',
+        description: 'Dwarf spiders feed on planthopper and leafhopper nymphs, whorl maggots'
+      },
+      {
+        img: 'Images/friend/Fieldcricket.jpg',
+        name: 'Field crickets',
+        type: 'friend',
+        description: 'Field crickets help break down organic matter.'
+      },
+      {
+        img: 'Images/friend/GroundBettle.jpg',
+        name: 'Ground Beetle',
+        type: 'friend',
+        description: 'Ground beetles feed on nymps of BPH, GLH and larvae of stemborers and leaf folders.'
+      },
+      {
+        img: 'Images/friend/LadyBettle.jpg',
+        name: 'Lady Beetle',
+        type: 'friend',
+        description: 'Lady beetles eat aphids that damage crops.'
+      },
+        {
+        img: 'Images/friend/Ladybug Nymph.jpg',
+        name: 'Ladybug Nymph',
+        type: 'friend',
+        description: 'Ladybug eats nymph of Brown Plant Hopper and small larvae of pests.'
+      },
+      {
+        img: 'Images/friend/LonghornedGrasshopper.jpg',
+        name: 'Long-horned Grasshopper',
+        type: 'friend',
+        description: 'Long-horned grasshoppers feed on stemborer egg masses, including hairy ones, as well as eggs of leaffeeders, rice bugs, and nymphs of planthoppers and leafhoppers.'
+      },
+      {
+        img: 'Images/friend/LongjawedSpider.jpg',
+        name: 'Long-jawed Spider',
+        type: 'friend',
+        description: 'Long-jawed spiders feeds on adult and nymps of BPH, GLH, Whorll maggots, that trapped in its web'
+      },
+      {
+        img: 'Images/friend/LynxSpider.jpg',
+        name: 'Lynx Spider',
+        type: 'friend',
+        description: 'Lynx Spiders feed on planthoppers, leafhoppers, caseworms, leaffolders, stem borer moths, rice seed bugs, and whorl maggots.'
+      },
+       {
+        img: 'Images/friend/MiridBug.jpg',
+        name: 'Mirid Bug',
+        type: 'friend',
+        description: 'Mirid bugs prefer the eggs of brown planthoppers and striped stem borers, and also feed on young planthopper and leafhopper nymphs.'
+      },
+      {
+        img: 'Images/friend/Orbspider.jpg',
+        name: 'Orb Spider',
+        type: 'friend',
+        description: 'Orb spiders catch flying pests in webs.'
+      },
+      {
+        img: 'Images/friend/ShorthornedGrasshopper.jpg',
+        name: 'Short-horned Grasshopper',
+        type: 'pest',
+        description: 'Short-horned grasshoppers feeds on leaves and cut panicle branches.'
+      },
+      {
+        img: 'Images/friend/Smallwasp.jpg',
+        name: 'Small Wasp',
+        type: 'friend',
+        description: 'Small wasps parasitized eggmass and larvae of pests.'
+      },
+      {
+        img: 'Images/friend/TachinidFly.jpg',
+        name: 'Tachinid Fly',
+        type: 'friend',
+        description: 'Tachinid fly feeds on larvae of leaffolders, skippers, armyworms, and stem borers.'
+      },
+      {
+        img: 'Images/friend/Wolfspider.jpg',
+        name: 'Wolf Spider',
+        type: 'friend',
+        description: 'Wolf spiders hunt and control harmful bugs.'
+      },
